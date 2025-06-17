@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+scikit-learn==1.2.2
+pandas
+numpy
+jinja2
+pickle-mixin
+python-multipart
