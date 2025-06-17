@@ -1,8 +1,6 @@
 fastapi
 uvicorn
-scikit-learn==1.2.2  # Properly pinned version
+scikit-learn>=1.3.0
 pandas
 numpy
-jinja2
-pickle-mixin
 python-multipart
