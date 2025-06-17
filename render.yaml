@@ -1,9 +1,8 @@
 services:
   - type: web
-    name: ml-deployment-fastapi
-    runtime: python
+    name: your-service-name
+    env: python
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app:app --host=0.0.0.0 --port=8000
-    envVars:
-      - key: PORT
-        value: 8000
+    runtime: python
+    pythonVersion: 3.10
