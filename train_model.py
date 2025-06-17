@@ -1,24 +1,25 @@
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestClassifier
-import pickle
+from sklearn.linear_model import LogisticRegression
+from sklearn.datasets import load_diabetes
+import joblib
 
-# Load dataset
-df = pd.read_csv("BankNote_Authentication.csv")  # Replace with your CSV file path
+# Load sample diabetes dataset
+diabetes = load_diabetes()
+X = pd.DataFrame(diabetes.data, columns=diabetes.feature_names)
 
-# Split features and labels
-X = df.drop("class", axis=1)
-y = df["class"]
+# Convert target to binary: 1 if target > 140 else 0
+y = (diabetes.target > 140).astype(int)
 
-# Train-test split (optional, here just to fit)
+# Train-test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train the model
-model = RandomForestClassifier()
+# Create and train model
+model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
 
-# Save the model
-with open("classifier.pkl", "wb") as f:
-    pickle.dump(model, f)
+# Save the model to a .pkl file
+joblib.dump(model, "model.pkl")
 
-print("Model trained and saved to classifier.pkl ✅")
+print("✅ model.pkl created successfully.")
