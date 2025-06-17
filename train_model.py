@@ -1,25 +1,30 @@
+# train_model.py
 import pandas as pd
-import numpy as np
+import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.datasets import load_diabetes
-import joblib
+from sklearn.preprocessing import StandardScaler
 
-# Load sample diabetes dataset
-diabetes = load_diabetes()
-X = pd.DataFrame(diabetes.data, columns=diabetes.feature_names)
+# Load dataset (make sure 'diabetes.csv' is in the same folder)
+data = pd.read_csv("diabetes.csv")
 
-# Convert target to binary: 1 if target > 140 else 0
-y = (diabetes.target > 140).astype(int)
+# Features and label
+X = data.drop("Outcome", axis=1)
+y = data["Outcome"]
 
-# Train-test split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Scale features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
 
-# Create and train model
-model = LogisticRegression(max_iter=1000)
+# Train/test split
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# Train model
+model = LogisticRegression()
 model.fit(X_train, y_train)
 
-# Save the model to a .pkl file
+# Save model and scaler
 joblib.dump(model, "model.pkl")
+joblib.dump(scaler, "scaler.pkl")
 
-print("✅ model.pkl created successfully.")
+print("✅ model.pkl and scaler.pkl have been saved.")
