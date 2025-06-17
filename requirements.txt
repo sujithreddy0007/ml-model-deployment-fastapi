@@ -6,4 +6,3 @@ numpy
 jinja2
 pickle-mixin
 python-multipart
-Pin scikit-learn version to 1.2.2 to fix Render deployment
