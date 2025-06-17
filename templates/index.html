@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank Note Authentication</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>🔐 Bank Note Authentication</h2>
+        <form method="post" action="/predict">
+            <input type="number" step="any" name="variance" placeholder="Variance" required>
+            <input type="number" step="any" name="skewness" placeholder="Skewness" required>
+            <input type="number" step="any" name="curtosis" placeholder="Curtosis" required>
+            <input type="number" step="any" name="entropy" placeholder="Entropy" required>
+            <button type="submit">Predict</button>
+        </form>
+        {% if result %}
+            <div class="result">Prediction: <strong>{{ result }}</strong></div>
+        {% endif %}
+    </div>
+</body>
+</html>
